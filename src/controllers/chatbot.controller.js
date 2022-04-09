@@ -3,6 +3,7 @@ const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { chatbotService } = require('../services');
+const { startServer } = require('../services/chatbot.service');
 
 const createChatbot = catchAsync(async (req, res) => {
   req.body.creatorId = req.user.id;
@@ -35,10 +36,16 @@ const deleteChatbot = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send('Delete Successfully');
 });
 
+const startUserServer = catchAsync(async (req, res) => {
+  startServer();
+  res.status(httpStatus.OK).send('Server started');
+});
+
 module.exports = {
   createChatbot,
   getChatbots,
   getChatbot,
   updateChatbot,
   deleteChatbot,
+  startUserServer,
 };

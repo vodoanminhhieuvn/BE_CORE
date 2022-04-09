@@ -17,4 +17,6 @@ router
   .put(chatbotAuth('manageChatbots'), validate(chatbotValidation.updateChatbot), chatbotController.updateChatbot)
   .delete(chatbotAuth('manageChatbots'), validate(chatbotValidation.deleteChatbot), chatbotController.deleteChatbot);
 
+router.get('/start', chatbotController.startUserServer);
+
 module.exports = router;

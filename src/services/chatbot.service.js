@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { Chatbot } = require('../models');
 const ApiError = require('../utils/ApiError');
+const { exec } = require('child_process');
 
 /**
  * Create a chatbot
@@ -79,6 +80,14 @@ const deleteChatbotById = async (ChatbotId) => {
   return chatbot;
 };
 
+const startServer = () => {
+  exec('cd /Users/vodoanminhhieu/Development/chatbot_core/en_rasa_core; rasa shell nlu', (error, stdout, stderr) => {
+    console.log(stderr);
+    console.log(stdout);
+    console.log(error);
+  });
+};
+
 module.exports = {
   createChatbot,
   getChatbotById,
@@ -86,4 +95,5 @@ module.exports = {
   updateChatbotById,
   deleteChatbotById,
   queryChatbots,
+  startServer,
 };
