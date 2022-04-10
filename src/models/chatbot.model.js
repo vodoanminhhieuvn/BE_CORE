@@ -32,7 +32,6 @@ chatbotSchema.plugin(paginate);
  * @param {ObjectId} [excludeChatbotId] - The id of the chatbot to be excluded
  * @returns {Promise<boolean>}
  */
-
 chatbotSchema.statics.isNameTaken = async function (name, excludeChatbotId) {
   const chatbot = await this.findOne({ name, _id: { $ne: excludeChatbotId } });
   return !!chatbot;

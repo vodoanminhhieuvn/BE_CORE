@@ -21,13 +21,13 @@ const getChatbots = {
 
 const getChatbot = {
   params: Joi.object().keys({
-    chatbotId: Joi.string().custom(objectId),
+    chatbotId: Joi.string().required().custom(objectId),
   }),
 };
 
 const updateChatbot = {
   params: Joi.object().keys({
-    chatbotId: Joi.required().custom(objectId),
+    chatbotId: Joi.string().required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
@@ -41,7 +41,7 @@ const updateChatbot = {
 
 const deleteChatbot = {
   params: Joi.object().keys({
-    chatbotId: Joi.string().custom(objectId),
+    chatbotId: Joi.string().required().custom(objectId),
   }),
 };
 
