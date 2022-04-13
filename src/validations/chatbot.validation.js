@@ -9,6 +9,14 @@ const createChatbot = {
   }),
 };
 
+const getMyChatbots = {
+  query: Joi.object().keys({
+    name: Joi.string(),
+    sortBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+  }),
+};
 const getChatbots = {
   query: Joi.object().keys({
     name: Joi.string(),
@@ -48,6 +56,7 @@ const deleteChatbot = {
 module.exports = {
   createChatbot,
   getChatbots,
+  getMyChatbots,
   getChatbot,
   updateChatbot,
   deleteChatbot,

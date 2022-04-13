@@ -3,11 +3,8 @@ const { Chatbot } = require('../models');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 
-const chatbotVerify = catchAsync(async (req, res, next) => {
+const verifyChatbot = catchAsync(async (req, res, next) => {
   if (req.user.role !== 'admin') {
-    if (!req.params.chatbotId) {
-      throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
-    }
     const chatbot = await Chatbot.findById(req.params.chatbotId);
     if (!chatbot) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
@@ -19,4 +16,4 @@ const chatbotVerify = catchAsync(async (req, res, next) => {
   return next();
 });
 
-module.exports = chatbotVerify;
+module.exports = verifyChatbot;

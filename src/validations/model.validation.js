@@ -12,7 +12,7 @@ const createModel = {
 const getModels = {
   query: Joi.object().keys({
     name: Joi.string(),
-    chatbotId: Joi.string(),
+    chatbotId: Joi.string().required(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),

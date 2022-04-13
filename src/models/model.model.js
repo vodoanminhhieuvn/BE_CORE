@@ -14,6 +14,7 @@ const modelSchema = mongoose.Schema(
     },
     schema: {
       type: Object,
+      required: true,
     },
   },
   { timestamps: true }
@@ -32,8 +33,8 @@ modelSchema.plugin(paginate);
  * @param {ObjectId} [excludeModelId] - The id of the model to be excluded
  * @returns {Promise<boolean>}
  */
-modelSchema.statics.isNameTaken = async function (name, chatbotId, excludeChatbotId) {
-  const chatbot = await this.findOne({ name, chatbotId, _id: { $ne: excludeChatbotId } });
+modelSchema.statics.isNameTaken = async function (name, chatbotId, excludeModelId) {
+  const chatbot = await this.findOne({ name, chatbotId, _id: { $ne: excludeModelId } });
   return !!chatbot;
 };
 

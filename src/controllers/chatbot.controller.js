@@ -10,6 +10,14 @@ const createChatbot = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(chatbot);
 });
 
+const getMyChatbots = catchAsync(async (req, res) => {
+  const filter = pick(req.query, ['name']);
+  filter.creatorId = req.user.id;
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const result = await chatbotService.queryChatbots(filter, options);
+  res.send(result);
+});
+
 const getChatbots = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'creatorId']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
@@ -38,6 +46,7 @@ const deleteChatbot = catchAsync(async (req, res) => {
 module.exports = {
   createChatbot,
   getChatbots,
+  getMyChatbots,
   getChatbot,
   updateChatbot,
   deleteChatbot,

@@ -4,3 +4,4 @@ module.exports.tokenService = require('./token.service');
 module.exports.userService = require('./user.service');
 module.exports.chatbotService = require('./chatbot.service');
 module.exports.modelService = require('./model.service');
+module.exports.storedItemService = require('./storedItem.service');
