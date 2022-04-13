@@ -1,22 +1,20 @@
 const Joi = require('joi');
-const { password, objectId } = require('./custom.validation');
+const { objectId } = require('./custom.validation');
 
 const create = {
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().custom(password),
+    chatbotId: Joi.string().required(),
+    type: Joi.string().required(),
     name: Joi.string().required(),
-    role: Joi.string().required().valid('user', 'admin'),
+    examples: Joi.array().required(),
   }),
 };
 
 const getItems = {
   query: Joi.object().keys({
+    chatbotId: Joi.string().required(),
+    type: Joi.string(),
     name: Joi.string(),
-    role: Joi.string(),
-    sortBy: Joi.string(),
-    limit: Joi.number().integer(),
-    page: Joi.number().integer(),
   }),
 };
 
@@ -32,9 +30,10 @@ const updateById = {
   }),
   body: Joi.object()
     .keys({
-      email: Joi.string().email(),
-      password: Joi.string().custom(password),
+      chatbotId: Joi.string(),
+      type: Joi.string(),
       name: Joi.string(),
+      examples: Joi.array(),
     })
     .min(1),
 };

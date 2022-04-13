@@ -4,6 +4,7 @@ const userRoute = require('./user.route');
 const chatbotRoute = require('./chatbot.route');
 const modelRoute = require('./model.route');
 const storedItemRoute = require('./storedItem.route');
+const trainingItemRoute = require('./trainingItem.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
@@ -29,6 +30,10 @@ const defaultRoutes = [
   {
     path: '/stored_items',
     route: storedItemRoute,
+  },
+  {
+    path: '/training_items',
+    route: trainingItemRoute,
   },
 ];
 

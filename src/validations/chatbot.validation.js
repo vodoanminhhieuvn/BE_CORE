@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
-const createChatbot = {
+const create = {
   body: Joi.object().keys({
     name: Joi.string().required(),
     slots: Joi.object().required(),
@@ -9,7 +9,7 @@ const createChatbot = {
   }),
 };
 
-const getMyChatbots = {
+const getMyItems = {
   query: Joi.object().keys({
     name: Joi.string(),
     sortBy: Joi.string(),
@@ -17,7 +17,7 @@ const getMyChatbots = {
     page: Joi.number().integer(),
   }),
 };
-const getChatbots = {
+const getItems = {
   query: Joi.object().keys({
     name: Joi.string(),
     creatorId: Joi.string(),
@@ -27,15 +27,15 @@ const getChatbots = {
   }),
 };
 
-const getChatbot = {
+const getById = {
   params: Joi.object().keys({
-    chatbotId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
 };
 
-const updateChatbot = {
+const updateById = {
   params: Joi.object().keys({
-    chatbotId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
@@ -47,17 +47,17 @@ const updateChatbot = {
     .min(1),
 };
 
-const deleteChatbot = {
+const deleteById = {
   params: Joi.object().keys({
-    chatbotId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
 };
 
 module.exports = {
-  createChatbot,
-  getChatbots,
-  getMyChatbots,
-  getChatbot,
-  updateChatbot,
-  deleteChatbot,
+  create,
+  getItems,
+  getMyItems,
+  getById,
+  updateById,
+  deleteById,
 };

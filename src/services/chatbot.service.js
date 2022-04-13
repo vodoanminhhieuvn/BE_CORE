@@ -7,7 +7,7 @@ const ApiError = require('../utils/ApiError');
  * @param {Object} chatbotBody
  * @returns {Promise<Chatbot>}
  */
-const createChatbot = async (chatbotBody) => {
+const create = async (chatbotBody) => {
   if (await Chatbot.isNameTaken(chatbotBody.name)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Chatbot name already taken');
   }
@@ -23,7 +23,7 @@ const createChatbot = async (chatbotBody) => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryChatbots = async (filter, options) => {
+const query = async (filter, options) => {
   const chatbots = await Chatbot.paginate(filter, options);
   return chatbots;
 };
@@ -33,7 +33,7 @@ const queryChatbots = async (filter, options) => {
  * @param {ObjectId} id
  * @returns {Promise<Chatbot>}
  */
-const getChatbotById = async (id) => {
+const getById = async (id) => {
   return Chatbot.findById(id);
 };
 
@@ -42,7 +42,7 @@ const getChatbotById = async (id) => {
  * @param {string} name
  * @returns {Promise<Chatbot>}
  */
-const getChatbotByName = async (name) => {
+const getByName = async (name) => {
   return Chatbot.findOne({ name });
 };
 
@@ -52,8 +52,8 @@ const getChatbotByName = async (name) => {
  * @param {Object} updateBody
  * @returns {Promise<Chatbot>}
  */
-const updateChatbotById = async (id, updateBody) => {
-  const chatbot = await getChatbotById(id);
+const updateById = async (id, updateBody) => {
+  const chatbot = await getById(id);
   if (!chatbot) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
   }
@@ -70,8 +70,8 @@ const updateChatbotById = async (id, updateBody) => {
  * @param {ObjectId} ChatbotId
  * @returns {Promise<Chatbot>}
  */
-const deleteChatbotById = async (ChatbotId) => {
-  const chatbot = await getChatbotById(ChatbotId);
+const deleteById = async (ChatbotId) => {
+  const chatbot = await getById(ChatbotId);
   if (!chatbot) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
   }
@@ -80,10 +80,10 @@ const deleteChatbotById = async (ChatbotId) => {
 };
 
 module.exports = {
-  createChatbot,
-  getChatbotById,
-  getChatbotByName,
-  updateChatbotById,
-  deleteChatbotById,
-  queryChatbots,
+  create,
+  getById,
+  getByName,
+  updateById,
+  deleteById,
+  query,
 };

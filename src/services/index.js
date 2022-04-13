@@ -5,3 +5,4 @@ module.exports.userService = require('./user.service');
 module.exports.chatbotService = require('./chatbot.service');
 module.exports.modelService = require('./model.service');
 module.exports.storedItemService = require('./storedItem.service');
+module.exports.trainingItemService = require('./trainingItem.service');

@@ -1,22 +1,22 @@
 const express = require('express');
 const auth = require('../../middlewares/auth');
 const validate = require('../../middlewares/validate');
-const userValidation = require('../../validations/user.validation');
-const userController = require('../../controllers/user.controller');
+const validation = require('../../validations/user.validation');
+const controller = require('../../controllers/user.controller');
 const verifyUser = require('../../permissions/user.permission');
 
 const router = express.Router();
 
 router
   .route('/')
-  .post(auth(), validate(userValidation.createUser), userController.createUser)
-  .get(auth('admin'), validate(userValidation.getUsers), userController.getUsers);
+  .post(auth(), validate(validation.create), controller.create)
+  .get(auth('admin'), validate(validation.getItems), controller.getItems);
 
 router
-  .route('/:userId')
-  .get(auth(), validate(userValidation.getUser), verifyUser, userController.getUser)
-  .put(auth(), validate(userValidation.updateUser), verifyUser, userController.updateUser)
-  .delete(auth(), validate(userValidation.deleteUser), verifyUser, userController.deleteUser);
+  .route('/:id')
+  .get(auth(), validate(validation.getById), verifyUser, controller.getById)
+  .put(auth(), validate(validation.updateById), verifyUser, controller.updateById)
+  .delete(auth(), validate(validation.deleteById), verifyUser, controller.deleteById);
 
 module.exports = router;
 

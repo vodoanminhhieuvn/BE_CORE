@@ -1,9 +1,9 @@
 const express = require('express');
 const validate = require('../../middlewares/validate');
 const auth = require('../../middlewares/auth');
-const { storedItemValidation: validation } = require('../../validations');
-const { storedItemController: controller } = require('../../controllers');
-const { storedItemPermission: permission } = require('../../permissions');
+const { trainingItemValidation: validation } = require('../../validations');
+const { trainingItemController: controller } = require('../../controllers');
+const { trainingItemPermission: permission } = require('../../permissions');
 
 const router = express.Router();
 

@@ -1,16 +1,16 @@
 const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
-const createStoredItem = {
+const create = {
   body: Joi.object().keys({
     modelId: Joi.string().required(),
     data: Joi.object().required(),
   }),
 };
 
-const getStoredItems = {
+const getItems = {
   query: Joi.object().keys({
-    modelId: Joi.string(),
+    modelId: Joi.string().required(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -20,15 +20,15 @@ const getStoredItems = {
   }),
 };
 
-const getStoredItem = {
+const getById = {
   params: Joi.object().keys({
-    storedItemId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
 };
 
-const updateStoredItem = {
+const updateById = {
   params: Joi.object().keys({
-    storedItemId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
@@ -38,16 +38,16 @@ const updateStoredItem = {
     .min(1),
 };
 
-const deleteStoredItem = {
+const deleteById = {
   params: Joi.object().keys({
-    storedItemId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
 };
 
 module.exports = {
-  createStoredItem,
-  getStoredItems,
-  getStoredItem,
-  updateStoredItem,
-  deleteStoredItem,
+  create,
+  getItems,
+  getById,
+  updateById,
+  deleteById,
 };

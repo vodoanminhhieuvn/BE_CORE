@@ -4,40 +4,39 @@ const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { modelService } = require('../services');
 
-const createModel = catchAsync(async (req, res) => {
-  const model = await modelService.createModel(req.body);
+const create = catchAsync(async (req, res) => {
+  const model = await modelService.create(req.body);
   res.status(httpStatus.CREATED).send(model);
 });
 
-const getModels = catchAsync(async (req, res) => {
+const getItems = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'chatbotId']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await modelService.queryModels(filter, options);
+  const result = await modelService.query(filter);
   res.send(result);
 });
 
-const getModel = catchAsync(async (req, res) => {
-  const model = await modelService.getModelById(req.params.modelId);
+const getById = catchAsync(async (req, res) => {
+  const model = await modelService.getById(req.params.id);
   if (!model) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Model not found');
   }
   res.send(model);
 });
 
-const updateModel = catchAsync(async (req, res) => {
-  const model = await modelService.updateModelById(req.params.modelId, req.body);
+const updateById = catchAsync(async (req, res) => {
+  const model = await modelService.updateById(req.params.id, req.body);
   res.send(model);
 });
 
-const deleteModel = catchAsync(async (req, res) => {
-  await modelService.deleteModelById(req.params.modelId);
+const deleteById = catchAsync(async (req, res) => {
+  await modelService.deleteById(req.params.id);
   res.status(httpStatus.OK).send('Delete Successfully');
 });
 
 module.exports = {
-  createModel,
-  getModels,
-  getModel,
-  updateModel,
-  deleteModel,
+  create,
+  getItems,
+  getById,
+  updateById,
+  deleteById,
 };

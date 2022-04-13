@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
-const createModel = {
+const create = {
   body: Joi.object().keys({
     name: Joi.string().required(),
     chatbotId: Joi.string().required(),
@@ -9,25 +9,22 @@ const createModel = {
   }),
 };
 
-const getModels = {
+const getItems = {
   query: Joi.object().keys({
     name: Joi.string(),
     chatbotId: Joi.string().required(),
-    sortBy: Joi.string(),
-    limit: Joi.number().integer(),
-    page: Joi.number().integer(),
   }),
 };
 
-const getModel = {
+const getById = {
   params: Joi.object().keys({
-    modelId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
 };
 
-const updateModel = {
+const updateById = {
   params: Joi.object().keys({
-    modelId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
@@ -38,16 +35,16 @@ const updateModel = {
     .min(1),
 };
 
-const deleteModel = {
+const deleteById = {
   params: Joi.object().keys({
-    modelId: Joi.string().required().custom(objectId),
+    id: Joi.string().required().custom(objectId),
   }),
 };
 
 module.exports = {
-  createModel,
-  getModels,
-  getModel,
-  updateModel,
-  deleteModel,
+  create,
+  getItems,
+  getById,
+  updateById,
+  deleteById,
 };

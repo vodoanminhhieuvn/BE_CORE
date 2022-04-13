@@ -5,7 +5,7 @@ const catchAsync = require('../utils/catchAsync');
 
 const verifyChatbot = catchAsync(async (req, res, next) => {
   if (req.user.role !== 'admin') {
-    const chatbot = await Chatbot.findById(req.params.chatbotId);
+    const chatbot = await Chatbot.findById(req.params.id);
     if (!chatbot) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
     }

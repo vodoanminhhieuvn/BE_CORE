@@ -1,15 +1,16 @@
 const httpStatus = require('http-status');
-const { Model, Chatbot } = require('../models');
+const logger = require('../config/logger');
+const { TrainingItem, Chatbot } = require('../models');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 
 const verifyItem = catchAsync(async (req, res, next) => {
   if (req.user.role !== 'admin') {
-    const model = await Model.findById(req.params.id).populate('chatbotId');
-    if (!model) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Model not found');
+    const item = await TrainingItem.findById(req.params.id).populate('chatbotId');
+    if (!item) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Training item not found');
     }
-    const chatbot = model.chatbotId;
+    const chatbot = item.chatbotId;
     if (!chatbot) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
     }
@@ -21,6 +22,7 @@ const verifyItem = catchAsync(async (req, res, next) => {
 });
 
 const checkChatbotId = async (user, chatbotId) => {
+  logger.info(chatbotId);
   const chatbot = await Chatbot.findById(chatbotId);
   if (!chatbot) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
@@ -44,4 +46,8 @@ const canCreate = catchAsync(async (req, res, next) => {
   return next();
 });
 
-module.exports = { verifyItem, canCreate, canViewItems };
+module.exports = {
+  verifyItem,
+  canCreate,
+  canViewItems,
+};

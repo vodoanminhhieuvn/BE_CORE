@@ -2,37 +2,31 @@ const httpStatus = require('http-status');
 const { StoredItem } = require('../models');
 const ApiError = require('../utils/ApiError');
 
-const createStoredItem = async (itemBody) => {
-  if (await StoredItem.isDataTaken(itemBody.modelId, itemBody.data)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Stored item already taken');
-  }
+const create = async (itemBody) => {
   return StoredItem.create(itemBody);
 };
 
-const queryStoredItems = async (filter, options) => {
+const query = async (filter, options) => {
   const items = await StoredItem.paginate(filter, options);
   return items;
 };
 
-const getStoredItemById = async (id) => {
+const getItems = async (id) => {
   return StoredItem.findById(id);
 };
 
-const updateStoredItemById = async (id, updateBody) => {
-  const item = await getStoredItemById(id);
+const getById = async (id, updateBody) => {
+  const item = await getItems(id);
   if (!item) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Stored item not found');
-  }
-  if (updateBody.name && (await StoredItem.isNameTaken(updateBody.modelId, updateBody.item, id))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Stored item already taken');
   }
   Object.assign(item, updateBody);
   await item.save();
   return item;
 };
 
-const deleteStoredItemById = async (dataId) => {
-  const item = await getStoredItemById(dataId);
+const deleteById = async (dataId) => {
+  const item = await getItems(dataId);
   if (!item) {
     throw new ApiError(httpStatus.NOT_FOUND, 'StoredItem not found');
   }
@@ -41,9 +35,9 @@ const deleteStoredItemById = async (dataId) => {
 };
 
 module.exports = {
-  createStoredItem,
-  getStoredItemById,
-  updateStoredItemById,
-  deleteStoredItemById,
-  queryStoredItems,
+  create,
+  getItems,
+  getById,
+  deleteById,
+  query,
 };

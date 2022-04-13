@@ -3,9 +3,9 @@ const { StoredItem, Model } = require('../models');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 
-const verifyStoredItem = catchAsync(async (req, res, next) => {
+const verifyItem = catchAsync(async (req, res, next) => {
   if (req.user.role !== 'admin') {
-    const item = await StoredItem.findById(req.params.storedItemId).populate('modelId');
+    const item = await StoredItem.findById(req.params.id).populate('modelId');
     if (!item) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Stored item not found');
     }
@@ -38,17 +38,17 @@ const checkModelId = async (user, modelId) => {
   }
 };
 
-const canCreateStoredItem = catchAsync(async (req, res, next) => {
+const canCreate = catchAsync(async (req, res, next) => {
   if (req.user.role !== 'admin') {
     await checkModelId(req.user, req.body.modelId);
   }
   return next();
 });
 
-const canViewStoredItems = catchAsync(async (req, res, next) => {
+const canViewItems = catchAsync(async (req, res, next) => {
   if (req.user.role !== 'admin') {
     await checkModelId(req.user, req.query.modelId);
   }
   return next();
 });
-module.exports = { verifyStoredItem, canCreateStoredItem, canViewStoredItems };
+module.exports = { verifyItem, canCreate, canViewItems };
