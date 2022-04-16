@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Action } = require('../models');
+const { CalledAction } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const handleMongooseError = (err) => {
@@ -12,16 +12,16 @@ const handleMongooseError = (err) => {
 };
 
 const create = async (itemBody) => {
-  return Action.create(itemBody).catch(handleMongooseError);
+  return CalledAction.create(itemBody).catch(handleMongooseError);
 };
 
 const query = async (filter) => {
-  const items = await Action.find(filter);
+  const items = await CalledAction.find(filter);
   return items;
 };
 
 const getById = async (id) => {
-  return Action.findById(id);
+  return CalledAction.findById(id);
 };
 
 const updateById = async (id, updateBody) => {

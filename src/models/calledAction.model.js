@@ -23,7 +23,7 @@ const calledActionSchema = mongoose.Schema(
       required: true,
     },
     inputs: {
-      type: [String],
+      type: [{ type: String }],
       default: [],
     },
     outputMapNames: {

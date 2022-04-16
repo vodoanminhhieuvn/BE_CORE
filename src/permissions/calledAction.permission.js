@@ -1,5 +1,4 @@
 const httpStatus = require('http-status');
-const logger = require('../config/logger');
 const { CalledAction, TrainingItem } = require('../models');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
@@ -30,8 +29,6 @@ const checkIntentId = async (user, intentId) => {
   if (!intent) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Intent not found');
   }
-  logger.info(intentId);
-  logger.info(intent);
   if (intent.type !== 'INTENT') {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Intent not found');
   }

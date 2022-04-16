@@ -1,5 +1,4 @@
 const httpStatus = require('http-status');
-const logger = require('../config/logger');
 const { TrainingItem, Chatbot } = require('../models');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
@@ -22,7 +21,6 @@ const verifyItem = catchAsync(async (req, res, next) => {
 });
 
 const checkChatbotId = async (user, chatbotId) => {
-  logger.info(chatbotId);
   const chatbot = await Chatbot.findById(chatbotId);
   if (!chatbot) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
