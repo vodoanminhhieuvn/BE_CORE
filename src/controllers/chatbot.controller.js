@@ -11,7 +11,7 @@ const create = catchAsync(async (req, res) => {
 });
 
 const getMyItems = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name']);
+  const filter = pick(req.query, ['name', 'isActive', 'isPrivate']);
   filter.creatorId = req.user.id;
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await chatbotService.query(filter, options);
@@ -19,7 +19,7 @@ const getMyItems = catchAsync(async (req, res) => {
 });
 
 const getItems = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'creatorId']);
+  const filter = pick(req.query, ['name', 'creatorId', 'isActive', 'isPrivate']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await chatbotService.query(filter, options);
   res.send(result);

@@ -12,11 +12,23 @@ const chatbotSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    isPrivate: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
     slots: {
       type: Object,
+      default: {},
     },
     configs: {
       type: Object,
+      default: {},
     },
   },
   { timestamps: true }

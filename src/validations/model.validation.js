@@ -4,7 +4,7 @@ const { objectId } = require('./custom.validation');
 const create = {
   body: Joi.object().keys({
     name: Joi.string().required(),
-    chatbotId: Joi.string().required(),
+    chatbotId: Joi.custom(objectId).required(),
     schema: Joi.object().required(),
   }),
 };
@@ -12,7 +12,7 @@ const create = {
 const getItems = {
   query: Joi.object().keys({
     name: Joi.string(),
-    chatbotId: Joi.string().required(),
+    chatbotId: Joi.custom(objectId).required(),
   }),
 };
 
@@ -29,7 +29,7 @@ const updateById = {
   body: Joi.object()
     .keys({
       name: Joi.string(),
-      chatbotId: Joi.string(),
+      chatbotId: Joi.custom(objectId),
       schema: Joi.object(),
     })
     .min(1),

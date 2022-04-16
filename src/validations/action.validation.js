@@ -1,22 +1,22 @@
 const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
+const variable = Joi.object().keys({
+  name: Joi.string().required(),
+  type: Joi.string().required(),
+});
+
 const create = {
   body: Joi.object().keys({
-    modelId: Joi.custom(objectId).required(),
-    data: Joi.object().required(),
+    name: Joi.string().required(),
+    inputs: Joi.array().items(variable).required(),
+    outputs: Joi.array().items(variable).required(),
   }),
 };
 
 const getItems = {
   query: Joi.object().keys({
-    modelId: Joi.custom(objectId).required(),
-    sortBy: Joi.string(),
-    limit: Joi.number().integer(),
-    page: Joi.number().integer(),
-  }),
-  body: Joi.object().keys({
-    data: Joi.object(),
+    name: Joi.string(),
   }),
 };
 
@@ -32,8 +32,9 @@ const updateById = {
   }),
   body: Joi.object()
     .keys({
-      modelId: Joi.custom(objectId),
-      data: Joi.object(),
+      name: Joi.string(),
+      inputs: Joi.array().items(variable),
+      outputs: Joi.array().items(variable),
     })
     .min(1),
 };

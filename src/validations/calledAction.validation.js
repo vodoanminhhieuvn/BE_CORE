@@ -3,20 +3,22 @@ const { objectId } = require('./custom.validation');
 
 const create = {
   body: Joi.object().keys({
-    modelId: Joi.custom(objectId).required(),
-    data: Joi.object().required(),
+    index: Joi.number().integer().required(),
+    intentId: Joi.required().custom(objectId),
+    actionId: Joi.required().custom(objectId),
+    inputs: Joi.array().items(Joi.string()),
+    outputMapNames: Joi.object(),
   }),
 };
 
 const getItems = {
   query: Joi.object().keys({
-    modelId: Joi.custom(objectId).required(),
+    intentId: Joi.custom(objectId).required(),
+    index: Joi.number().integer(),
+    actionId: Joi.custom(objectId),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
-  }),
-  body: Joi.object().keys({
-    data: Joi.object(),
   }),
 };
 
@@ -32,8 +34,11 @@ const updateById = {
   }),
   body: Joi.object()
     .keys({
-      modelId: Joi.custom(objectId),
-      data: Joi.object(),
+      index: Joi.number().integer(),
+      intentId: Joi.custom(objectId),
+      actionId: Joi.custom(objectId),
+      inputs: Joi.array().items(Joi.string()),
+      outputMapNames: Joi.object(),
     })
     .min(1),
 };

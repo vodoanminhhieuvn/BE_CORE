@@ -4,14 +4,18 @@ const { objectId } = require('./custom.validation');
 const create = {
   body: Joi.object().keys({
     name: Joi.string().required(),
-    slots: Joi.object().required(),
-    configs: Joi.object().required(),
+    isActive: Joi.boolean(),
+    isPrivate: Joi.boolean(),
+    slots: Joi.object(),
+    configs: Joi.object(),
   }),
 };
 
 const getMyItems = {
   query: Joi.object().keys({
     name: Joi.string(),
+    isActive: Joi.boolean(),
+    isPrivate: Joi.boolean(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -21,6 +25,8 @@ const getItems = {
   query: Joi.object().keys({
     name: Joi.string(),
     creatorId: Joi.string(),
+    isActive: Joi.boolean(),
+    isPrivate: Joi.boolean(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -41,6 +47,8 @@ const updateById = {
     .keys({
       name: Joi.string(),
       creatorId: Joi.custom(objectId),
+      isActive: Joi.boolean(),
+      isPrivate: Joi.boolean(),
       slots: Joi.object(),
       configs: Joi.object(),
     })

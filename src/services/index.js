@@ -6,3 +6,5 @@ module.exports.chatbotService = require('./chatbot.service');
 module.exports.modelService = require('./model.service');
 module.exports.storedItemService = require('./storedItem.service');
 module.exports.trainingItemService = require('./trainingItem.service');
+module.exports.calledActionService = require('./calledAction.service');
+module.exports.actionService = require('./action.service');
