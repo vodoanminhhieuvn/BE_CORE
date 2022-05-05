@@ -2,6 +2,12 @@ const express = require('express');
 const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const chatbotRoute = require('./chatbot.route');
+const modelRoute = require('./model.route');
+const storedItemRoute = require('./storedItem.route');
+const trainingItemRoute = require('./trainingItem.route');
+const actionRoute = require('./action.route');
+const calledActionRoute = require('./calledAction.route');
+const feedbackRoute = require('./feedback.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
@@ -17,8 +23,32 @@ const defaultRoutes = [
     route: userRoute,
   },
   {
-    path: '/chatbot',
+    path: '/chatbots',
     route: chatbotRoute,
+  },
+  {
+    path: '/models',
+    route: modelRoute,
+  },
+  {
+    path: '/stored_items',
+    route: storedItemRoute,
+  },
+  {
+    path: '/training_items',
+    route: trainingItemRoute,
+  },
+  {
+    path: '/actions',
+    route: actionRoute,
+  },
+  {
+    path: '/called_actions',
+    route: calledActionRoute,
+  },
+  {
+    path: '/feedback',
+    route: feedbackRoute,
   },
 ];
 

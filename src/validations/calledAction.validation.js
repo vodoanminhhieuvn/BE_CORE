@@ -3,30 +3,19 @@ const { objectId } = require('./custom.validation');
 
 const create = {
   body: Joi.object().keys({
-    name: Joi.string().required(),
-    isActive: Joi.boolean(),
-    isPrivate: Joi.boolean(),
-    slots: Joi.object(),
-    configs: Joi.object(),
+    index: Joi.number().integer().required(),
+    intentId: Joi.required().custom(objectId),
+    actionId: Joi.required().custom(objectId),
+    inputs: Joi.array().items(Joi.string()),
+    outputMapNames: Joi.object(),
   }),
 };
 
-const getMyItems = {
-  query: Joi.object().keys({
-    name: Joi.string(),
-    isActive: Joi.boolean(),
-    isPrivate: Joi.boolean(),
-    sortBy: Joi.string(),
-    limit: Joi.number().integer(),
-    page: Joi.number().integer(),
-  }),
-};
 const getItems = {
   query: Joi.object().keys({
-    name: Joi.string(),
-    creatorId: Joi.string(),
-    isActive: Joi.boolean(),
-    isPrivate: Joi.boolean(),
+    intentId: Joi.custom(objectId).required(),
+    index: Joi.number().integer(),
+    actionId: Joi.custom(objectId),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -45,12 +34,11 @@ const updateById = {
   }),
   body: Joi.object()
     .keys({
-      name: Joi.string(),
-      creatorId: Joi.custom(objectId),
-      isActive: Joi.boolean(),
-      isPrivate: Joi.boolean(),
-      slots: Joi.object(),
-      configs: Joi.object(),
+      index: Joi.number().integer(),
+      intentId: Joi.custom(objectId),
+      actionId: Joi.custom(objectId),
+      inputs: Joi.array().items(Joi.string()),
+      outputMapNames: Joi.object(),
     })
     .min(1),
 };
@@ -64,7 +52,6 @@ const deleteById = {
 module.exports = {
   create,
   getItems,
-  getMyItems,
   getById,
   updateById,
   deleteById,

@@ -2,58 +2,31 @@ const httpStatus = require('http-status');
 const { Chatbot } = require('../models');
 const ApiError = require('../utils/ApiError');
 
-/**
- * Create a chatbot
- * @param {Object} chatbotBody
- * @returns {Promise<Chatbot>}
- */
-const createChatbot = async (chatbotBody) => {
+const create = async (chatbotBody) => {
   if (await Chatbot.isNameTaken(chatbotBody.name)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Chatbot name already taken');
   }
+
+  // ? Execute command to create local chatbot
+
   return Chatbot.create(chatbotBody);
 };
 
-/**
- * Query for chatbots
- * @param {Object} filter - Mongo filter
- * @param {Object} options - Query options
- * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
- * @param {number} [options.limit] - Maximum number of results per page (default = 10)
- * @param {number} [options.page] - Current page (default = 1)
- * @returns {Promise<QueryResult>}
- */
-const queryChatbots = async (filter, options) => {
+const query = async (filter, options) => {
   const chatbots = await Chatbot.paginate(filter, options);
   return chatbots;
 };
 
-/**
- * Get chatbot by id
- * @param {ObjectId} id
- * @returns {Promise<Chatbot>}
- */
-const getChatbotById = async (id) => {
+const getById = async (id) => {
   return Chatbot.findById(id);
 };
 
-/**
- * Get chatbot by name
- * @param {string} name
- * @returns {Promise<Chatbot>}
- */
-const getChatbotByName = async (name) => {
+const getByName = async (name) => {
   return Chatbot.findOne({ name });
 };
 
-/**
- * Update chatbot by id
- * @param {ObjectId} chatbotId
- * @param {Object} updateBody
- * @returns {Promise<Chatbot>}
- */
-const updateChatbotById = async (id, updateBody) => {
-  const chatbot = await getChatbotById(id);
+const updateById = async (id, updateBody) => {
+  const chatbot = await getById(id);
   if (!chatbot) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
   }
@@ -65,13 +38,8 @@ const updateChatbotById = async (id, updateBody) => {
   return chatbot;
 };
 
-/**
- * Delete chatbot by id
- * @param {ObjectId} ChatbotId
- * @returns {Promise<Chatbot>}
- */
-const deleteChatbotById = async (ChatbotId) => {
-  const chatbot = await getChatbotById(ChatbotId);
+const deleteById = async (ChatbotId) => {
+  const chatbot = await getById(ChatbotId);
   if (!chatbot) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Chatbot not found');
   }
@@ -80,10 +48,10 @@ const deleteChatbotById = async (ChatbotId) => {
 };
 
 module.exports = {
-  createChatbot,
-  getChatbotById,
-  getChatbotByName,
-  updateChatbotById,
-  deleteChatbotById,
-  queryChatbots,
+  create,
+  getById,
+  getByName,
+  updateById,
+  deleteById,
+  query,
 };

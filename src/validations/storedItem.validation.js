@@ -3,33 +3,20 @@ const { objectId } = require('./custom.validation');
 
 const create = {
   body: Joi.object().keys({
-    name: Joi.string().required(),
-    isActive: Joi.boolean(),
-    isPrivate: Joi.boolean(),
-    slots: Joi.object(),
-    configs: Joi.object(),
+    modelId: Joi.custom(objectId).required(),
+    data: Joi.object().required(),
   }),
 };
 
-const getMyItems = {
+const getItems = {
   query: Joi.object().keys({
-    name: Joi.string(),
-    isActive: Joi.boolean(),
-    isPrivate: Joi.boolean(),
+    modelId: Joi.custom(objectId).required(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
   }),
-};
-const getItems = {
-  query: Joi.object().keys({
-    name: Joi.string(),
-    creatorId: Joi.string(),
-    isActive: Joi.boolean(),
-    isPrivate: Joi.boolean(),
-    sortBy: Joi.string(),
-    limit: Joi.number().integer(),
-    page: Joi.number().integer(),
+  body: Joi.object().keys({
+    data: Joi.object(),
   }),
 };
 
@@ -45,12 +32,8 @@ const updateById = {
   }),
   body: Joi.object()
     .keys({
-      name: Joi.string(),
-      creatorId: Joi.custom(objectId),
-      isActive: Joi.boolean(),
-      isPrivate: Joi.boolean(),
-      slots: Joi.object(),
-      configs: Joi.object(),
+      modelId: Joi.custom(objectId),
+      data: Joi.object(),
     })
     .min(1),
 };
@@ -64,7 +47,6 @@ const deleteById = {
 module.exports = {
   create,
   getItems,
-  getMyItems,
   getById,
   updateById,
   deleteById,

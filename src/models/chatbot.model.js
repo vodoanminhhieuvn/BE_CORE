@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { availableLocale } = require('../config/locales');
 const { toJSON, paginate } = require('./plugins');
 
 const chatbotSchema = mongoose.Schema(
@@ -12,11 +13,28 @@ const chatbotSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    isPrivate: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
     slots: {
       type: Object,
+      default: {},
+    },
+    locale: {
+      type: String,
+      enum: availableLocale,
+      default: 'en',
     },
     configs: {
       type: Object,
+      default: {},
     },
   },
   { timestamps: true }
@@ -32,7 +50,6 @@ chatbotSchema.plugin(paginate);
  * @param {ObjectId} [excludeChatbotId] - The id of the chatbot to be excluded
  * @returns {Promise<boolean>}
  */
-
 chatbotSchema.statics.isNameTaken = async function (name, excludeChatbotId) {
   const chatbot = await this.findOne({ name, _id: { $ne: excludeChatbotId } });
   return !!chatbot;
