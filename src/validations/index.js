@@ -6,3 +6,4 @@ module.exports.storedItemValidation = require('./storedItem.validation');
 module.exports.trainingItemValidation = require('./trainingItem.validation');
 module.exports.calledActionValidation = require('./calledAction.validation');
 module.exports.actionValidation = require('./action.validation');
+module.exports.feedbackValidation = require('./feedback.validation');

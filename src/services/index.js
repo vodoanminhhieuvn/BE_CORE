@@ -8,3 +8,4 @@ module.exports.storedItemService = require('./storedItem.service');
 module.exports.trainingItemService = require('./trainingItem.service');
 module.exports.calledActionService = require('./calledAction.service');
 module.exports.actionService = require('./action.service');
+module.exports.feedbackService = require('./feedback.service');

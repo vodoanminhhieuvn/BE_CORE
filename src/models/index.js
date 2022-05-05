@@ -6,3 +6,4 @@ module.exports.StoredItem = require('./storedItem.model');
 module.exports.TrainingItem = require('./trainingItem.model');
 module.exports.Action = require('./action.model');
 module.exports.CalledAction = require('./calledAction.model');
+module.exports.Feedback = require('./feedback.model');

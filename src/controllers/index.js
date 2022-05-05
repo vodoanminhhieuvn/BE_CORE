@@ -6,3 +6,4 @@ module.exports.storedItemController = require('./storedItem.controller');
 module.exports.trainingItemController = require('./trainingItem.controller');
 module.exports.calledActionController = require('./calledAction.controller');
 module.exports.actionController = require('./action.controller');
+module.exports.feedbackController = require('./feedback.controller');

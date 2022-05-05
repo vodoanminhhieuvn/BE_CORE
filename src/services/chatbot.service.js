@@ -6,6 +6,9 @@ const create = async (chatbotBody) => {
   if (await Chatbot.isNameTaken(chatbotBody.name)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Chatbot name already taken');
   }
+
+  // ? Execute command to create local chatbot
+
   return Chatbot.create(chatbotBody);
 };
 

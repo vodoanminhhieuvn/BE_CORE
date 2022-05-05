@@ -7,6 +7,7 @@ const storedItemRoute = require('./storedItem.route');
 const trainingItemRoute = require('./trainingItem.route');
 const actionRoute = require('./action.route');
 const calledActionRoute = require('./calledAction.route');
+const feedbackRoute = require('./feedback.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
@@ -44,6 +45,10 @@ const defaultRoutes = [
   {
     path: '/called_actions',
     route: calledActionRoute,
+  },
+  {
+    path: '/feedback',
+    route: feedbackRoute,
   },
 ];
 

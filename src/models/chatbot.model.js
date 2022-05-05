@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { availableLocale } = require('../config/locales');
 const { toJSON, paginate } = require('./plugins');
 
 const chatbotSchema = mongoose.Schema(
@@ -25,6 +26,11 @@ const chatbotSchema = mongoose.Schema(
     slots: {
       type: Object,
       default: {},
+    },
+    locale: {
+      type: String,
+      enum: availableLocale,
+      default: 'en',
     },
     configs: {
       type: Object,
