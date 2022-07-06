@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/07c7c55e-cb1f-4bdc-b4b1-669496464daf/microsoft.web/sites/subscriptions/07c7c55e-cb1f-4bdc-b4b1-669496464daf/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/love-food",
+  "appService.deploySubpath": "."
+}
